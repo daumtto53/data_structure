@@ -17,4 +17,8 @@
 
 # include <stddef.h>
 
+int		*create_disjoint_set(int size);
+int		disjoint_set_find(int *parent, int src);
+void	disjoint_set_union(int *parent, int x, int y);
+
 #endif
