@@ -1,5 +1,5 @@
 #include "stack.h"
-
+#include <stdio.h>
 LinkedStack* createLinkedStack(int max)
 {
 	LinkedStack *stack;
@@ -16,26 +16,35 @@ int pushLS(LinkedStack* pStack, StackNode element)
 		return -1;
 	if (isLinkedStackFull(pStack))
 		return -1;
+	ListNode *node = malloc(sizeof(ListNode));
+	node->data = element.data;
 	addLLElement(pStack->pTopElement, 0, element);
 	pStack->currentElementCount++;
 }
 
 StackNode* popLS(LinkedStack* pStack)
 {
+	StackNode *copy;
+	StackNode *src;
+
 	if (!pStack)
-		return -1;
+		return NULL;
 	if (isLinkedStackEmpty(pStack))
-		return -1;
+		return NULL;
 	pStack->currentElementCount--;
-	return (getLLElement(pStack->pTopElement, 0));
+	src = getLLElement(pStack->pTopElement, 0);
+	copy = malloc(sizeof(StackNode));
+	copy->data = src->data;
+	removeLLElement(pStack->pTopElement, 0);
+	return (copy);
 }
 
 StackNode* peekLS(LinkedStack* pStack)
 {
 	if (!pStack)
-		return -1;
+		return NULL;
 	if (isLinkedStackEmpty(pStack))
-		return -1;
+		return NULL;
 	return (getLLElement(pStack->pTopElement, 0));
 }
 
@@ -55,10 +64,11 @@ int isLinkedStackEmpty(LinkedStack* pStack)
 	return (pStack->currentElementCount == 0);
 }
 
-int checkBracketMatching(char *pSource)
+int isBracketMatch(char *pSource)
 {
 	LinkedStack *LS;
-	ListNode *element;
+	ListNode element;
+	ListNode *ptr;
 	ListNode *curr;
 
 	if (!pSource)
@@ -67,19 +77,16 @@ int checkBracketMatching(char *pSource)
 	for (int i = 0; pSource[i]; i++)
 	{
 		if (pSource[i] == '(')
-		{
-			element = malloc(sizeof(ListNode));
-			pushAS(LS, element);
-		}
+			pushLS(LS, element);
 		else if (pSource[i] == ')')
 		{
-			if (!(element = popLS(LS)))
+			if (!(ptr = popLS(LS)))
 			{
 				deleteLinkedStack(LS);
 				return 0;
 			}
 			else
-				free(element);
+				free(ptr);
 		}
 	}
 	if (!isLinkedStackEmpty(LS))

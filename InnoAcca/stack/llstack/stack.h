@@ -1,4 +1,6 @@
 #include "../../linkedlist/linkedlist.h"
+#include <stdlib.h>
+#include <string.h>
 
 typedef ListNode StackNode;
 typedef struct LinkedStackType
@@ -16,4 +18,4 @@ StackNode* peekLS(LinkedStack* pStack);
 void deleteLinkedStack(LinkedStack* pStack);
 int isLinkedStackFull(LinkedStack* pStack);
 int isLinkedStackEmpty(LinkedStack* pStack);
-int checkBracketMatching(char *pSource);
+int isBracketMatch(char *pSource);
