@@ -1,5 +1,6 @@
 #include "../../linkedlist/linkedlist.h"
 
+typedef ListNode StackNode;
 typedef struct LinkedStackType
 {
 	int	maxElementCount;

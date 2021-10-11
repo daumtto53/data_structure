@@ -64,7 +64,7 @@ int checkBracketMatching(char *pSource)
 	if (!pSource)
 		return -1;
 	LS = createLinkedStack(strlen(pSource));
-	for (int i = 0; pSource[i], i++)
+	for (int i = 0; pSource[i]; i++)
 	{
 		if (pSource[i] == '(')
 		{
