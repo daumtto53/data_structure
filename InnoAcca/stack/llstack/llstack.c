@@ -82,5 +82,8 @@ int checkBracketMatching(char *pSource)
 				free(element);
 		}
 	}
-
+	if (!isLinkedStackEmpty(LS))
+		return 0;
+	else
+		return 1;
 }

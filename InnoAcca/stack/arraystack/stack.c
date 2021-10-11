@@ -1,22 +1,11 @@
 #include "stack.h"
 #include <string.h>
 
-typedef struct StackNodeType
-{
-	int data;
-} StackNode;
-
-typedef struct ArrayStackType
-{
-	int currentElementCount;	// 현재 원소의 개수
-	int maxElementCount;
-	StackNode** arr;		// Top 노드의 포인터
-} ArrayStack;
 
 ArrayStack* createArrayStack(int max)
 {
 	ArrayStack	*new_AS = malloc(sizeof(ArrayStack));
-	StackNode	*new_array = malloc(sizeof(StackNode) * max);
+	StackNode	**new_array = malloc(sizeof(StackNode *) * max);
 	new_AS->currentElementCount = 0;
 	new_AS->maxElementCount = max;
 	new_AS->arr = new_array;
@@ -29,7 +18,8 @@ int pushAS(ArrayStack* pStack, StackNode *element)
 		return -1;
 	if (isArrayStackFull(pStack))
 		return -1;
-	pStack->arr[pStack->currentElementCount++] = element;
+	pStack->arr[pStack->currentElementCount] = element;
+	pStack->currentElementCount++;
 	return pStack->currentElementCount;
 }
 
@@ -45,9 +35,9 @@ StackNode* popAS(ArrayStack* pStack)
 StackNode* peekAS(ArrayStack* pStack)
 {
 	if (!pStack)
-		return -1;
+		return NULL;
 	if (isArrayStackEmpty(pStack))
-		return -1;
+		return NULL;
 	return pStack->arr[pStack->currentElementCount - 1];
 }
 
@@ -94,5 +84,8 @@ int isBracketMatch(char *pSource)
 				free(element);
 		}
 	}
-	return 1;
+	if (!isArrayStackEmpty(AS))
+		return 0;
+	else
+		return 1;
 }
