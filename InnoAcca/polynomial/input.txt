@@ -1,0 +1,14 @@
+main() 안에서 처리
+
+position을 찾아야하는데
+
+for문 앞에서부터 같은 차수면 더하고 
+			다르면 추가
+헤더 
+
+type
+- 항 maxElementCount;
+
+각각 node
+- 계수
+- 차수
