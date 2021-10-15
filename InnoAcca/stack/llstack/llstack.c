@@ -1,5 +1,6 @@
 #include "stack.h"
 #include <stdio.h>
+
 LinkedStack* createLinkedStack(int max)
 {
 	LinkedStack *stack;
